@@ -15,4 +15,8 @@ public class StudentResponseDto {
 
     private int age;
 
+    private boolean success;
+
+    private String message;
+
 }

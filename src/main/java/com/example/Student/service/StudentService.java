@@ -3,6 +3,7 @@ package com.example.Student.service;
 import com.example.Student.dto.request.CreateStudentRequestDto;
 import com.example.Student.dto.request.UpdateStudentRequestDto;
 import com.example.Student.entity.Student;
+import com.example.Student.exception.StudentNotFoundException;
 import com.example.Student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,11 @@ public class StudentService {
     }
 
     public Student findStudentById(Long id) {
-        return studentRepository.findById(id).orElse(null);
+        return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student does not exist"));
     }
 
     public Student updateStudent(Long id, UpdateStudentRequestDto updateStudentRequestDto) {
-        Student existingStudent = studentRepository.findById(id).orElse(null);
+        Student existingStudent = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student does not exist"));
 
         if (existingStudent != null) {
             existingStudent.setName(updateStudentRequestDto.getName());
@@ -42,6 +43,9 @@ public class StudentService {
     }
 
     public void deleteStudent(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new StudentNotFoundException("Student with id " + id + " not found");
+        }
         studentRepository.deleteById(id);
     }
 }

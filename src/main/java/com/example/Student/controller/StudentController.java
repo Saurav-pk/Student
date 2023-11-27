@@ -6,6 +6,7 @@ import com.example.Student.dto.response.StudentResponseDto;
 import com.example.Student.entity.Student;
 import com.example.Student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
