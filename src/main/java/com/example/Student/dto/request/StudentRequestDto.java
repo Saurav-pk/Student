@@ -1,13 +1,18 @@
 package com.example.Student.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class UpdateStudentRequestDto {
+@AllArgsConstructor
+public class StudentRequestDto {
+
     private String name;
-    private int age;
+
+    private Integer age;
+
 }

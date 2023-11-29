@@ -1,12 +1,11 @@
 package com.example.Student.controller;
 
-import com.example.Student.dto.request.CreateStudentRequestDto;
-import com.example.Student.dto.request.UpdateStudentRequestDto;
+import com.example.Student.dto.request.StudentRequestDto;
 import com.example.Student.dto.response.StudentResponseDto;
 import com.example.Student.entity.Student;
 import com.example.Student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,14 +19,16 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping(value = "createStudent")
-    public StudentResponseDto createStudent(@RequestBody CreateStudentRequestDto createStudentRequestDto) {
-        Student createdStudent = studentService.createStudent(createStudentRequestDto);
-        return convertToStudentResponseDto(createdStudent);
+    public ResponseEntity<StudentResponseDto> createStudent(@RequestBody StudentRequestDto studentRequestDto) {
+        Student createdStudent = studentService.createStudent(studentRequestDto);
+        StudentResponseDto responseDto = convertToStudentResponseDto(createdStudent);
+        return ResponseEntity.ok(responseDto);
     }
 
     @GetMapping(value = "listStudents")
     public List<StudentResponseDto> findAllStudents() {
-        List<Student> students = studentService.findAllStudents();
+        StudentResponseDto<List<Student>> studentResponseDto = studentService.findAllStudents();
+        List<Student> students = studentResponseDto.getData();
         return students.stream()
                 .map(this::convertToStudentResponseDto)
                 .collect(Collectors.toList());
@@ -40,8 +41,8 @@ public class StudentController {
     }
 
     @PutMapping("update/{id}")
-    public StudentResponseDto updateStudent(@PathVariable Long id, @RequestBody UpdateStudentRequestDto updateStudentRequestDto) {
-        Student updatedStudent = studentService.updateStudent(id, updateStudentRequestDto);
+    public StudentResponseDto updateStudent(@PathVariable Long id, @RequestBody StudentRequestDto studentRequestDto) {
+        Student updatedStudent = studentService.updateStudent(id, studentRequestDto);
         return convertToStudentResponseDto(updatedStudent);
     }
 
@@ -53,7 +54,7 @@ public class StudentController {
     private StudentResponseDto convertToStudentResponseDto(Student student) {
         if (student != null) {
             StudentResponseDto responseDto = new StudentResponseDto();
-            responseDto.setId(student.getId());
+            responseDto.setId(Long.valueOf(student.getId()));
             responseDto.setName(student.getName());
             responseDto.setAge(student.getAge());
             return responseDto;

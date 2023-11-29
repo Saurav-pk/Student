@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentResponseDto {
+public class StudentResponseDto<T> {
 
     private Long id;
 
@@ -18,5 +20,11 @@ public class StudentResponseDto {
     private boolean success;
 
     private String message;
+
+    private T data;
+
+    public StudentResponseDto(T data) {
+        this.data = data;
+    }
 
 }
