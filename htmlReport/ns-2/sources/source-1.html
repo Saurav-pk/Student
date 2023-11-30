@@ -1,0 +1,168 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > StudentController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.Student.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: StudentController (com.example.Student.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StudentController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.Student.controller;
+&nbsp;
+&nbsp;import com.example.Student.dto.request.StudentRequestDto;
+&nbsp;import com.example.Student.dto.response.StudentResponseDto;
+&nbsp;import com.example.Student.entity.Student;
+&nbsp;import com.example.Student.service.StudentService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(value = &quot;/api/students&quot;)
+<b class="nc">&nbsp;public class StudentController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private StudentService studentService;
+&nbsp;
+&nbsp;    @PostMapping(value = &quot;createStudent&quot;)
+&nbsp;    public ResponseEntity&lt;StudentResponseDto&gt; createStudent(@RequestBody StudentRequestDto studentRequestDto) {
+<b class="nc">&nbsp;        Student createdStudent = studentService.createStudent(studentRequestDto);</b>
+<b class="nc">&nbsp;        StudentResponseDto responseDto = convertToStudentResponseDto(createdStudent);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(responseDto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(value = &quot;listStudents&quot;)
+&nbsp;    public List&lt;StudentResponseDto&gt; findAllStudents() {
+<b class="nc">&nbsp;        StudentResponseDto&lt;List&lt;Student&gt;&gt; studentResponseDto = studentService.findAllStudents();</b>
+<b class="nc">&nbsp;        List&lt;Student&gt; students = studentResponseDto.getData();</b>
+<b class="nc">&nbsp;        return students.stream()</b>
+<b class="nc">&nbsp;                .map(this::convertToStudentResponseDto)</b>
+<b class="nc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{id}&quot;)
+&nbsp;    public StudentResponseDto findStudentById(@PathVariable Long id) {
+<b class="nc">&nbsp;        Student student = studentService.findStudentById(id);</b>
+<b class="nc">&nbsp;        return convertToStudentResponseDto(student);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;update/{id}&quot;)
+&nbsp;    public StudentResponseDto updateStudent(@PathVariable Long id, @RequestBody StudentRequestDto studentRequestDto) {
+<b class="nc">&nbsp;        Student updatedStudent = studentService.updateStudent(id, studentRequestDto);</b>
+<b class="nc">&nbsp;        return convertToStudentResponseDto(updatedStudent);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;/delete/{id}&quot;)
+&nbsp;    public void deleteStudent(@PathVariable Long id) {
+<b class="nc">&nbsp;        studentService.deleteStudent(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private StudentResponseDto convertToStudentResponseDto(Student student) {
+<b class="nc">&nbsp;        if (student != null) {</b>
+<b class="nc">&nbsp;            StudentResponseDto responseDto = new StudentResponseDto();</b>
+<b class="nc">&nbsp;            responseDto.setId(Long.valueOf(student.getId()));</b>
+<b class="nc">&nbsp;            responseDto.setName(student.getName());</b>
+<b class="nc">&nbsp;            responseDto.setAge(student.getAge());</b>
+<b class="nc">&nbsp;            return responseDto;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-30 09:24</div>
+</div>
+</body>
+</html>

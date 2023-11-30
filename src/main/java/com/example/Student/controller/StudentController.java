@@ -15,9 +15,13 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/students")
 public class StudentController {
 
-    @Autowired
+
     private StudentService studentService;
 
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
+    }
     @PostMapping(value = "createStudent")
     public ResponseEntity<StudentResponseDto> createStudent(@RequestBody StudentRequestDto studentRequestDto) {
         Student createdStudent = studentService.createStudent(studentRequestDto);

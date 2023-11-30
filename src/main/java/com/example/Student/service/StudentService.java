@@ -33,13 +33,11 @@ public class StudentService {
 
     public Student updateStudent(Long id, StudentRequestDto studentRequestDto) {
         Student existingStudent = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student does not exist"));
-
         if (existingStudent != null) {
             existingStudent.setName(studentRequestDto.getName());
             existingStudent.setAge(studentRequestDto.getAge());
             return studentRepository.save(existingStudent);
         }
-
         return null;
     }
 
