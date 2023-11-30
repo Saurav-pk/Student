@@ -40,17 +40,15 @@ class StudentServicesTests {
         assertEquals(expectedStudent, result);
     }
     @Test
-    void testCreateStudent(){
-
-        Student student = Student.builder()
-                .name("Saurav")
-                .age(22).build();
-       StudentRequestDto studentRequestDto = StudentRequestDto.builder()
-                .name("Saurav")
-                .age(22).build();
-        when(studentRepository.save(Mockito.any(Student.class))).thenReturn(student);
-        Student savedStudent = studentService.createStudent(studentRequestDto);
-        Assertions.assertThat(savedStudent).isNotNull();
+    void testCreateStudent() {
+        StudentRequestDto requestDto = new StudentRequestDto("John Doe", 25);
+        Student expectedStudent = new Student(1L, "John Doe", 25);
+        when(studentRepository.save(any())).thenReturn(expectedStudent);
+        Student result = studentService.createStudent(requestDto);
+        verify(studentRepository).save(any());
+        assertEquals(expectedStudent, result);
+        assertEquals("John Doe", result.getName());
+        assertEquals(25, result.getAge());
     }
 
     @Test
