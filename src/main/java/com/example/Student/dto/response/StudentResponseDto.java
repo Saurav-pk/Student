@@ -11,11 +11,11 @@ import java.util.Collection;
 @NoArgsConstructor
 public class StudentResponseDto<T> {
 
-    private Long id;
+    private Integer id;
 
     private String name;
 
-    private int age;
+    private Integer age;
 
     private boolean success;
 

@@ -58,7 +58,7 @@ public class StudentController {
     private StudentResponseDto convertToStudentResponseDto(Student student) {
         if (student != null) {
             StudentResponseDto responseDto = new StudentResponseDto();
-            responseDto.setId(Long.valueOf(student.getId()));
+            responseDto.setId(Math.toIntExact(student.getId()));
             responseDto.setName(student.getName());
             responseDto.setAge(student.getAge());
             return responseDto;

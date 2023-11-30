@@ -29,7 +29,7 @@ class StudentControllerTest {
     @Test
     void testCreateStudent() {
         StudentRequestDto requestDto = new StudentRequestDto("John Doe", 21);
-        Student createdStudent = new Student(1, "John Doe", 21);
+        Student createdStudent = new Student(1L, "John Doe", 21);
         when(studentService.createStudent(requestDto)).thenReturn(createdStudent);
         ResponseEntity<StudentResponseDto> response = studentController.createStudent(requestDto);
         verify(studentService).createStudent(requestDto);
@@ -39,7 +39,7 @@ class StudentControllerTest {
 
     @Test
     void testFindAllStudents() {
-        List<Student> students = Arrays.asList(new Student(1, "John", 22), new Student(2, "Jane", 23));
+        List<Student> students = Arrays.asList(new Student(1L, "John", 22), new Student(2L, "Jane", 23));
         when(studentService.findAllStudents()).thenReturn(new StudentResponseDto<>(students));
         List<StudentResponseDto> response = studentController.findAllStudents();
         verify(studentService).findAllStudents();
@@ -48,11 +48,11 @@ class StudentControllerTest {
 
     @Test
     void testFindStudentById() {
-        Integer studentId = 1;
+        long studentId = 1L;
         Student student = new Student(studentId, "John", 21);
-        when(studentService.findStudentById(Long.valueOf(studentId))).thenReturn(student);
-        StudentResponseDto response = studentController.findStudentById(Long.valueOf(studentId));
-        verify(studentService).findStudentById(Long.valueOf(studentId));
+        when(studentService.findStudentById(studentId)).thenReturn(student);
+        StudentResponseDto response = studentController.findStudentById(studentId);
+        verify(studentService).findStudentById(studentId);
         assertEquals("John", response.getName());
     }
 
@@ -60,7 +60,7 @@ class StudentControllerTest {
     void testUpdateStudent() {
         long studentId = 1L;
         StudentRequestDto requestDto = new StudentRequestDto("Updated John", 23);
-        Student updatedStudent = new Student((int) studentId, "Updated John", 23);
+        Student updatedStudent = new Student(studentId, "Updated John", 23);
         when(studentService.updateStudent(studentId, requestDto)).thenReturn(updatedStudent);
         StudentResponseDto response = studentController.updateStudent(studentId, requestDto);
         verify(studentService).updateStudent(studentId, requestDto);

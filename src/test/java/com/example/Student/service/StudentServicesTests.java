@@ -32,7 +32,7 @@ class StudentServicesTests {
 
     @Test
     void testFindStudentById() {
-        Integer studentId = 1;
+        long studentId = 1;
         Student expectedStudent = new Student(studentId, "John Doe", 21);
         when(studentRepository.findById(Long.valueOf(studentId))).thenReturn(Optional.of(expectedStudent));
         Student result = studentService.findStudentById(Long.valueOf(studentId));
@@ -66,7 +66,7 @@ class StudentServicesTests {
     @Test
     void testUpdateStudent() {
         Long id = 1L;
-        Student existingStudent = new Student(Math.toIntExact(id), "John Doe", 25);
+        Student existingStudent = new Student(id, "John Doe", 25);
         StudentRequestDto requestDto = new StudentRequestDto("Updated Name", 30);
         when(studentRepository.findById(id)).thenReturn(Optional.ofNullable(existingStudent));
         when(studentRepository.save(Mockito.any(Student.class))).thenAnswer(invocation -> {
