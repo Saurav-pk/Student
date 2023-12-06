@@ -4,6 +4,7 @@ import com.example.Student.dto.request.StudentRequestDto;
 import com.example.Student.dto.response.StudentResponseDto;
 import com.example.Student.entity.Student;
 import com.example.Student.repository.StudentRepository;
+import com.example.Student.service.impl.StudentService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

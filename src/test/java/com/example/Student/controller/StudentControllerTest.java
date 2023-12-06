@@ -3,7 +3,7 @@ package com.example.Student.controller;
 import com.example.Student.dto.request.StudentRequestDto;
 import com.example.Student.dto.response.StudentResponseDto;
 import com.example.Student.entity.Student;
-import com.example.Student.service.StudentService;
+import com.example.Student.service.impl.StudentService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
